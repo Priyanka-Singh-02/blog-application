@@ -1,0 +1,185 @@
+<html>
+
+<head>
+    <title>Admin Dashboard ||</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<style>
+    body {
+        background-color: peachpuff;
+
+    }
+
+    .col {
+        color: rgb(255, 159, 75);
+        font-weight: bold;
+        background-color: black;
+    }
+
+    li {
+        color: white;
+        list-style-type: none;
+    }
+
+    p {
+        color: white;
+        font-weight: 500;
+        margin-top: 0;
+
+    }
+
+    .status input:hover {
+        background-color: rgb(52, 231, 52);
+        color: black;
+        border-color: rgb(247, 243, 243);
+
+        {{!-- font-weight: bold; --}}
+
+    }
+
+    .status input {
+        height: 25px;
+
+    }
+
+    .delete input:hover {
+        background-color: rgb(231, 69, 69);
+        color: rgb(22, 21, 21);
+        border-color: white;
+        {{!-- font-weight: bold; --}}
+    }
+
+    .delete input {
+        height: 25px;
+
+    }
+</style>
+
+<body>
+    <div class="row">
+        <div class="col spacing">
+            <h4 class="text-center">S.no.</h4>
+            <br><br>
+            {{#each user}}
+            <div class="col">
+                <p>
+                    <li style="text-align:center;">{{ math @index "+" 1}}</li>
+                </p>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="col spacing">
+            <h4 class="text-center">Users</h4>
+            <br><br>
+            <div class="col">
+                <p style="text-align: center;">
+                <p>
+                    {{#each user}}
+                <p>{{this.email}}</p>
+                {{/each}}</p>
+            </div>
+        </div>
+
+        <div class="col spacing">
+            <h4 class="text-center">liveStatus</h4>
+            <br><br>
+            <div class="col status">
+                <p style="text-align: center;"> {{#each user}}<li> <input type="button" class="btn-danger space mb-3"
+                            value={{this.status}}
+                            onclick="window.location='http://localhost:8010/api/v1/admin/update/{{_id}}'">
+
+                        {{/each}}</li>
+                </p>
+            </div>
+
+
+        </div>
+        <div class="col spacing">
+            <h4 class="text-center">Delete User</h4>
+            <br><br>
+            <div class="col delete">
+                <p style="text-align: center;"> {{#each user}}<li> <input type="button" class="btn-primary space mb-3"
+                            value="Delete User"
+                            onclick="window.location='http://localhost:8010/api/v1/admin/delete/{{_id}}'">{{/each}}</li>
+                </p>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4 class="text-center">Blogs</h4>
+            <br><br>
+            <div class="col">
+
+
+
+                <ul>{{#each blogs}}
+                    <p style="color: rgb(255, 164, 164);">{{math @index "+" 1}}_USER_{{this.email}}
+                        {{#each this.MyBlog}}
+                        <li style="font-weight:lighter;">{{this.body}}</li>
+                        {{/each}}
+                    </p>
+                    {{/each}}
+                </ul>
+
+
+
+
+            </div>
+        </div>
+        <div class="col">
+            <h4 class="text-center">Blog and Comments</h4>
+            <br><br>
+            <div class="col">
+                <br>
+                   {{!-- <p style="color: rgb(255, 164, 164);"> Comments on each blog</p> --}}
+                               <ul>{{#each comments}}
+                   {{!-- <p style="color: rgb(255, 164, 164);"> Comments on each blog --}}
+                        {{!-- {{#each this.Comments}} --}}
+                        <p style="color: rgb(255, 164, 164);">{{this.MyBlog.body}}
+                        <li style="font-weight:lighter;">{{this.MyBlog.Comments.length}}</li>
+                        {{!-- {{/each}} --}}
+                    {{!-- </p> --}}
+                    {{/each}}
+                </ul>
+
+            </div>
+        </div>
+
+        {{!-- <div class="col">
+            <h4 class="text-center">Total Comments</h4>
+            <br><br>
+            <div class="col">
+                <p>
+                <p>{{#each comments}}
+                <p style="text-align: center;">{{this.Myblog.Comments.length}}</p>
+                {{/each}}</p>
+            </div>
+        </div> --}}
+
+
+
+
+        <div class="col">
+            <h4 class="text-center">Total Blogs</h4>
+            <br><br>
+            <div class="col">
+
+
+
+                <ul>{{#each blogs}}
+                     <p style="color: rgb(255, 164, 164);">{{math @index "+" 1}}_USER_{{this.firstName}}
+                    <li style="font-weight:lighter;margin-botton:20px;">{{this.MyBlog.length}}</li>
+
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
